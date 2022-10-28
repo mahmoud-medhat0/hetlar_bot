@@ -26,7 +26,7 @@ const ytmp3 = require('./lib/ytmp3');
 const apk_link = require('./lib/playstore');
 const yts = require('yt-search')
 const cheerio = require('cheerio');
-
+const thumb = '/src/stice.jpg';
 
 async function ytinfo(name) {
 
@@ -87,7 +87,24 @@ async function cmd(conn, mek) {
         switch (command) {
 
             // alive //  
+            case 'start':
+                try {
+                    const result = {
+                        msg: "اهلا بك في بوت ستايس 🥰 \n Welcome in Stice Bot",
+                        thumbnail: thumb,
+                    }
+                    const buttons = [
+                        { buttonId: prefix + 'ar' + ytl.yuturl, buttonText: { displayText: 'Arabic 🇸🇦' }, type: 1 },
+                        { buttonId: prefix + 'en' + ytl.yuturl, buttonText: { displayText: 'English 🇬🇧' }, type: 1 },
+                    ]
+                    await conn.sendMessage(from, { image: { url: thumb }, caption: result.msg, footer: config.FOOTER, buttons: buttons, headerType: 4 }, { quoted: mek })
 
+                } catch (e) {
+                    const mg12 = 'في حاله وجود اي خطأ او اقتراح برجاء التواصل مع المطور'
+                    await conn.sendMessage(from, { text: mg12 }, { quoted: mek })
+                    await conn.sendMessage(from, { text: 'error\n\n' + e }, { quoted: mek })
+                }
+                break
             case 'alive':
                 try {
                     var alivemsg = ''
@@ -904,7 +921,7 @@ async function cmd(conn, mek) {
                     "description": ".sticker مع الرد على الورة المراد تحويلها ",
                     "rowId": prefix + 'sticker'
                 }, {
-                    "title": "صناعه ملصق مع تيير الحقوق ",
+                    "title": "صناعه ملصق مع تغيير الحقوق ",
                     "description": ".stickget مع الرد على الورة المراد تحويلها ",
                     "rowId": prefix + 'stickget'
                 }, {
